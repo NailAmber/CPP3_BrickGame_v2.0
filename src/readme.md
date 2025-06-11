@@ -171,3 +171,35 @@ sudo make uninstall
 - If you add new tests, place them in `src/tests/` and update the Makefile if needed.
 
 ---
+
+## Game State Machine Diagram
+
+Here is a diagram illustrating the states and transitions of the game's Finite State Machine (FSM).
+
+```mermaid
+graph TD
+    %% Main Game Flow
+    A[START_SCREEN] -->|User Input: Start| B(GAME_RUNNING)
+    B -->|User Input: Pause| C{PAUSED}
+    C -->|User Input: Pause| B
+
+    %% Game Over Conditions
+    B -->|Game Logic: Snake hits wall/self| D[GAME_OVER_LOSE]
+    B -->|Game Logic: Win condition met| E[GAME_OVER_WIN]
+
+    %% Reset from Game Over and Paused
+    D -->|User Input: Start| A
+    E -->|User Input: Start| A
+    C -->|User Input: Start| A
+
+    %% Termination Transitions (from any state)
+    A --o|User Input: Terminate| F(TERMINATE_GAME)
+    B --o|User Input: Terminate| F
+    C --o|User Input: Terminate| F
+    D --o|User Input: Terminate| F
+    E --o|User Input: Terminate| F
+
+    %% Styling to make TERMINATE_GAME stand out
+    classDef terminationState fill:#F8D7DA,stroke:#DC3545,stroke-width:2px,color:#721C24;
+    class F terminationState;
+```
