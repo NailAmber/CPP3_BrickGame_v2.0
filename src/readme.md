@@ -168,6 +168,7 @@ sudo make uninstall
 ## Notes
 
 - All build and test commands should be run from the `src/` directory.
+- Generating high score txt file ONLY in Snake module. You can add same feature in Tetris module or implement it in GUI, CLI.
 - If you add new tests, place them in `src/tests/` and update the Makefile if needed.
 
 ---
